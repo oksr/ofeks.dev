@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofek Seroussi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #fafafa;
+            --bg-secondary: #f0f0f0;
+            --text-primary: #111;
+            --text-secondary: #666;
+            --border: #e5e5e5;
+            --hover-bg: rgba(0, 0, 0, 0.04);
+        }
+
+        [data-theme="dark"] {
+            --bg: #111;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ededed;
+            --text-secondary: #999;
+            --border: #2a2a2a;
+            --hover-bg: rgba(255, 255, 255, 0.06);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 0 1.5rem;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 5rem 0 4rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2.5rem;
+        }
+
+        h1 {
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.35rem 0.65rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-family: inherit;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--hover-bg);
+            color: var(--text-primary);
+            border-color: var(--text-secondary);
+        }
+
+        .bio {
+            font-size: 0.9375rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.125rem;
+        }
+
+        .links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            padding: 0.5rem 0.625rem;
+            margin: 0 -0.625rem;
+            border-radius: 8px;
+            transition: background 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .links a:hover {
+            background: var(--hover-bg);
+        }
+
+        .links a .arrow {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: opacity 0.15s, transform 0.15s;
+        }
+
+        .links a:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: background 0.15s;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header">
+            <h1>Ofek Seroussi</h1>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                <span class="theme-label">Dark</span>
+            </button>
+        </div>
+
+        <p class="bio">
+            Software engineer and entrepreneur based in Tel Aviv. Over a decade of building products,
+            the last few years focused on AI - LLMs, conversational AI, and scalable architectures.
+            Currently freelancing at 
+            <a href="https://wisor.ai" target="_blank" class="link">Wisor.AI</a>.
+            The rest of the time, cooking Rollio, a chat-based video creation tool.
+        </p>
+
+        <div>
+            <p class="section-title">Links</p>
+            <div class="links">
+                <a href="https://github.com/oksr" target="_blank" rel="noopener">
+                    GitHub
+                    <span class="arrow">&rarr;</span>
+                </a>
+                <a href="https://www.linkedin.com/in/ofek-seroussi-134865a6/" target="_blank" rel="noopener">
+                    LinkedIn
+                    <span class="arrow">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function getTheme() {
+            return localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            document.querySelector('.theme-label').textContent = theme === 'dark' ? 'Light' : 'Dark';
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', next);
+            applyTheme(next);
+        }
+
+        applyTheme(getTheme());
+    </script>
+</body>
+</html>
